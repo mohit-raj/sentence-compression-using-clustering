@@ -38,7 +38,7 @@ if __name__ == '__main__':
             obj[index].s_string = eachLine
             obj[index].s_length = len(eachLine.split())
             index += 1
-    print noOfSentences
+    # print noOfSentences
 
     for i in range(noOfSentences):
         doc.append(obj[i].s_string)
@@ -49,5 +49,17 @@ if __name__ == '__main__':
         matrix.add_doc(i)
 
     matrix.write_csv('/home/mohit/Desktop/sentence-compression-using-clustering/core.py/Matrix Generated Output/matrix.csv', cutoff=1)
-    for row in matrix.rows(cutoff=1):
-            print row
+    # for row in matrix.rows(cutoff=1):
+    #     print row
+
+    # for column in matrix.columns(cutoff=1):
+    #     print column
+
+    count = 0
+    with open('/home/mohit/Desktop/sentence-compression-using-clustering/core.py/Matrix Generated Output/matrix.csv') as file:
+        for eachLine in file:
+            count += 1
+            if(count == 1):
+                continue
+            else:
+                
