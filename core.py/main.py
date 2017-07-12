@@ -1,13 +1,14 @@
 import math
 import csv
 import textmining
+import numpy
 from operator import itemgetter, attrgetter
 
 class article (object):
 
     s_id = 0
     s_length = 0
-    s_normalised_lenght = 0
+    s_mod_lenght = 0
     s_string =""
 
     def __init__(self, index):
@@ -36,7 +37,7 @@ if __name__ == '__main__':
             obj[index].s_id = index
             obj[index].s_string = eachLine
             obj[index].s_length = len(eachLine.split())
-            obj[index].s_normalised_lenght = 0
+            obj[index].s_mod_lenght = 0
             index += 1
 
     for i in range(noOfSentences):
@@ -54,13 +55,35 @@ if __name__ == '__main__':
     index = 0
     for rows in data[1:]:
         for item in rows:
-            obj[index].s_normalised_lenght = obj[index].s_normalised_lenght + (int(item) ** 2)
+            obj[index].s_mod_lenght = obj[index].s_mod_lenght + (int(item) ** 2)
 
-        obj[index].s_normalised_lenght = math.sqrt(obj[index].s_normalised_lenght)
+
+        obj[index].s_mod_lenght = math.sqrt(obj[index].s_mod_lenght)
         index += 1
+
+    countOfTerms = 0
+
+    for rows in data[1]:
+        for item in rows:
+            countOfTerms += 1
+        
+
+    index = 0
+    i = 1
+    j = 1
+    tempSum = 0.0
                
-    print obj[0].s_normalised_lenght
-    print obj[1].s_normalised_lenght
-    print obj[2].s_normalised_lenght
-    print obj[3].s_normalised_lenght
-    
+    while(i <= 4):
+        j = 1
+        index = 0
+        while(j <= 4):
+            if(i != j):
+                index = 0
+                while(index < countOfTerms):
+                    tempSum = tempSum + ((float)(data[i][index]) / obj[i-1].s_mod_lenght) * ((float)(data[j][index]) / obj[j-1].s_mod_lenght)
+                    index += 1
+                print numpy.arccos(tempSum)
+                tempSum = 0.0
+                index = 0
+            j += 1
+        i += 1
